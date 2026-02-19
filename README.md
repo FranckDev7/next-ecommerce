@@ -39,3 +39,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 
 est un package npm utilisé pour ajouter facilement l’authentification (connexion, inscription, gestion des utilisateurs)
 dans une application Next.js.
+
+## C’est quoi un module ?
+
+est un fichier qui contient du code et qui peut être importé dans un autre fichier.
