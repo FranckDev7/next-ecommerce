@@ -1,0 +1,52 @@
+import React, { FC } from 'react'
+import Logo from '@/components/Logo'
+import { X } from 'lucide-react'
+import Link from 'next/link'
+import { headerData } from '@/constants/data'
+import { usePathname } from 'next/navigation'
+import SocialMedia from '@/components/SocialMedia'
+import { useOutsideClick } from '@/app/hooks'
+
+interface SidebarProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const SideMenu: FC<SidebarProps> = ({ isOpen, onClose }) => {
+  const pathname = usePathname()
+  const sidebarRef = useOutsideClick<HTMLDivElement>(onClose)
+  return (
+    <div
+      className={`fixed inset-y-0 left-0 z-50 h-screen w-full bg-black/50 text-white/70 shadow-xl ${isOpen ? 'translate-x-0' : '-translate-x-full'} hoverEffect`}
+    >
+      <div
+        ref={sidebarRef}
+        className={`border-r-shop-light-green flex h-screen max-w-96 min-w-72 flex-col gap-6 border-r bg-black p-10`}
+      >
+        <div className="flex items-center justify-between gap-5">
+          <Logo className="text-white" spanDesign="group-hover:text-white" />
+          <button
+            onClick={onClose}
+            className="hover:text-shop-light-green hoverEffect"
+          >
+            <X />
+          </button>
+        </div>
+        <div className="hover:text-shop-light-green hoverEffect flex flex-col space-y-3.5 font-semibold tracking-wide">
+          {headerData?.map(item => (
+            <Link
+              href={item?.href}
+              key={item?.title}
+              className={`hover:text-shop-light-green hoverEffect ${pathname === item?.href && 'text-white'}`}
+            >
+              {item?.title}
+            </Link>
+          ))}
+        </div>
+        <SocialMedia />
+      </div>
+    </div>
+  )
+}
+
+export default SideMenu
